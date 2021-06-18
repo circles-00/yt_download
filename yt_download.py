@@ -29,12 +29,16 @@ def down_location(type, playlist_name=""):
     if location == 1:
         current_os = platform.system()
         if current_os == "Windows":
-            os.mkdir("C:\Music")
-            os.mkdir("C:\Music" + def_loc_line)
+            if not os.path.exists("C:\Music"):
+                os.mkdir("C:\Music")
+            if not os.path.exists("C:\Music" + def_loc_line):
+                os.mkdir("C:\Music" + def_loc_line)
             os.chdir("C:\Music" + def_loc_line)
         else:
-            os.mkdir("/home/Music")
-            os.mkdir("/home/Music" + def_loc_line)
+            if not os.path.exists("/home/Music"):
+                os.mkdir("/home/Music")
+            if not os.path.exists("/home/Music" + def_loc_line):   
+                os.mkdir("/home/Music" + def_loc_line)
             os.chdir("/home/Music" + def_loc_line)
         if playlist_name != "":
             if not os.path.exists(playlist_name):

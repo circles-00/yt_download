@@ -21,23 +21,23 @@ pafy.set_api_key(api_key)
 
 # Handle download location
 def down_location(type, playlist_name=""):
-    def_loc_line = None
+    def_path = None
     current_os = platform.system()
     if type == 1:
         if current_os == "Windows":
-            def_loc_line = "\Single songs"
+            def_path = "C:\Music\Single songs"
         else:
-            def_loc_line = "/Single songs"
+            def_path = "/home/Music/Single songs"
     elif type == 2:
         if current_os == "Windows":
-            def_loc_line = "\Playlists"
+            def_path = "C:\Music\Playlists"
         else:
-            def_loc_line = "/Playlists"
+            def_path = "/home/Music/Playlists"
     elif type == 3:
         if current_os == "Windows":
-            def_loc_line = "\Albums"
+            def_path = "C:\Music\Albums"
         else:
-            def_loc_line = "/Albums"
+            def_path = "/home/Music/Albums"
 
     print("Use default download location or a custom one? (Just type 1 or 2)")
     print("1. Default location")
@@ -45,13 +45,13 @@ def down_location(type, playlist_name=""):
     location = int(input())
     if location == 1:
         if current_os == "Windows":
-            if not os.path.exists("C:\Music" + def_loc_line):
-                os.makedirs("C:\Music" + def_loc_line)
-            os.chdir("C:\Music" + def_loc_line)
+            if not os.path.exists(def_path):
+                os.makedirs(def_path)
+            os.chdir(def_path)
         else:
-            if not os.path.exists("/home/Music" + def_loc_line):
-                os.makedirs("/home/Music" + def_loc_line)
-            os.chdir("/home/Music" + def_loc_line)
+            if not os.path.exists(def_path):
+                os.makedirs(def_path)
+            os.chdir(def_path)
         if playlist_name != "":
             if not os.path.exists(playlist_name):
                 os.mkdir(playlist_name)

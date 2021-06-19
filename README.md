@@ -18,3 +18,5 @@ To be able to start using this script, you have to first edit line 7 with your y
 Note for Linux users: Run the script in root mode, for example sudo python3 yt_download.py
 
 Note: After you use the script for the first time, feel free to comment out lines 13 & 14 for faster execution. This is not a necessary action, you can completely ignore this note if you feel lazy to do it.
+
+Note: If you get HTTP Error 404 or 403 error code, it's nothing to worry about, just re-run the script.

@@ -44,14 +44,10 @@ def down_location(type, playlist_name=""):
     print("2. Custom location")
     location = int(input())
     if location == 1:
-        if current_os == "Windows":
-            if not os.path.exists(def_path):
-                os.makedirs(def_path)
-            os.chdir(def_path)
-        else:
-            if not os.path.exists(def_path):
-                os.makedirs(def_path)
-            os.chdir(def_path)
+        if not os.path.exists(def_path):
+            os.makedirs(def_path)
+        os.chdir(def_path)
+
         if playlist_name != "":
             if not os.path.exists(playlist_name):
                 os.mkdir(playlist_name)

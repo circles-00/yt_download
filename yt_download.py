@@ -80,24 +80,32 @@ def down_playlist(down_type):
 if __name__ == '__main__':
 
     # Main
-    print("Choose what type of download you're going to use: (Just type 1, 2 or 3)")
-    print("1. A single song")
-    print("2. A playlist")
-    print("3. An album")
-    down_type = int(input())
+    while True:
+        print("Choose what type of download you're going to use: (Just type 1, 2 or 3)")
+        print("1. A single song")
+        print("2. A playlist")
+        print("3. An album")
+        down_type = int(input())
 
-    if down_type == 1:
-        url = input("Enter video url: \n")
-        video = pafy.new(url)
-        down_location(down_type)
-        audiostreams = video.audiostreams
-        audiostreams[2].download(video.title + ".m4a")
+        if down_type == 1:
+            url = input("Enter video url: \n")
+            video = pafy.new(url)
+            down_location(down_type)
+            audiostreams = video.audiostreams
+            audiostreams[2].download(video.title + ".m4a")
 
-    elif down_type == 2:
-        down_playlist(down_type)
+        elif down_type == 2:
+            down_playlist(down_type)
 
-    elif down_type == 3:
-        down_playlist(down_type)
+        elif down_type == 3:
+            down_playlist(down_type)
 
-    else:
-        print("Invalid input")
+        else:
+            print("Invalid input")
+
+        print("Script has finished executing")
+        con = input("Do you wish to continue downloading?[y\\n]\n")
+        if con == 'y':
+            continue
+        else:
+            break

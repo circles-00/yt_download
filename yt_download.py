@@ -1,16 +1,19 @@
-import pafy
 import os
 import sys
 import subprocess
 import platform
 
-# Set yt_api_key
-api_key = "Add your api key here"
-pafy.set_api_key(api_key)
-
 # Install dependency packages function
 def install(package):
     subprocess.check_call([sys.executable, "-m", "pip", "install", package])
+
+# Install pafy package
+install('pafy')
+import pafy
+
+# Set yt_api_key
+api_key = "Add your api key here"
+pafy.set_api_key(api_key)
 
 # Handle download location
 def down_location(type, playlist_name=""):
@@ -69,8 +72,6 @@ def down_playlist(down_type):
 
 
 if __name__ == '__main__':
-    # Install pafy package
-    install('pafy')
 
     # Main
     print("Choose what type of download you're going to use: (Just type 1, 2 or 3)")

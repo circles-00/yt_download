@@ -3,45 +3,54 @@ import sys
 import subprocess
 import platform
 
+
 # Install dependency packages function
 def install(package):
     subprocess.check_call([sys.executable, "-m", "pip", "install", package])
 
+
 # Install pafy package
 install('pafy')
+install('youtube-dl')
 import pafy
 
 # Set yt_api_key
 api_key = "Add your api key here"
 pafy.set_api_key(api_key)
 
+
 # Handle download location
 def down_location(type, playlist_name=""):
     def_loc_line = None
+    current_os = platform.system()
     if type == 1:
-        def_loc_line = "\Single songs"
+        if current_os == "Windows":
+            def_loc_line = "\Single songs"
+        else:
+            def_loc_line = "/Single songs"
     elif type == 2:
-        def_loc_line = "\Playlists"
+        if current_os == "Windows":
+            def_loc_line = "\Playlists"
+        else:
+            def_loc_line = "/Playlists"
     elif type == 3:
-        def_loc_line = "\Albums"
+        if current_os == "Windows":
+            def_loc_line = "\Albums"
+        else:
+            def_loc_line = "/Albums"
 
     print("Use default download location or a custom one? (Just type 1 or 2)")
     print("1. Default location")
     print("2. Custom location")
     location = int(input())
     if location == 1:
-        current_os = platform.system()
         if current_os == "Windows":
-            if not os.path.exists("C:\Music"):
-                os.mkdir("C:\Music")
             if not os.path.exists("C:\Music" + def_loc_line):
-                os.mkdir("C:\Music" + def_loc_line)
+                os.makedirs("C:\Music" + def_loc_line)
             os.chdir("C:\Music" + def_loc_line)
         else:
-            if not os.path.exists("/home/Music"):
-                os.mkdir("/home/Music")
-            if not os.path.exists("/home/Music" + def_loc_line):   
-                os.mkdir("/home/Music" + def_loc_line)
+            if not os.path.exists("/home/Music" + def_loc_line):
+                os.makedirs("/home/Music" + def_loc_line)
             os.chdir("/home/Music" + def_loc_line)
         if playlist_name != "":
             if not os.path.exists(playlist_name):
@@ -52,6 +61,7 @@ def down_location(type, playlist_name=""):
         os.chdir(custom_dir)
     else:
         print("Invalid input")
+
 
 def down_playlist(down_type):
     url = input("Enter playlist url: \n")

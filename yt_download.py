@@ -74,31 +74,48 @@ def down_playlist(down_type):
             audiostreams[2].download(song_video.title + ".m4a")
             curr_song += 1
         except:
-            pass
+            continue
 
 
 if __name__ == '__main__':
 
     # Main
     while True:
+        down_type, url = None, None
         print("Choose what type of download you're going to use: (Just type 1, 2 or 3)")
         print("1. A single song")
         print("2. A playlist")
         print("3. An album")
-        down_type = int(input())
+        try:
+            down_type = int(input())
+        except:
+            pass
 
         if down_type == 1:
-            url = input("Enter video url: \n")
-            video = pafy.new(url)
+            try:
+                url = input("Enter video url: \n")
+                video = pafy.new(url)
+            except:
+                print("Invalid url")
+                continue
+
             down_location(down_type)
             audiostreams = video.audiostreams
             audiostreams[2].download(video.title + ".m4a")
 
         elif down_type == 2:
-            down_playlist(down_type)
+            try:
+                down_playlist(down_type)
+            except:
+                print("Invalid url")
+                continue
 
         elif down_type == 3:
-            down_playlist(down_type)
+            try:
+                down_playlist(down_type)
+            except:
+                print("Invalid url")
+                continue
 
         else:
             print("Invalid input")

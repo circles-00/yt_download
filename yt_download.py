@@ -20,24 +20,20 @@ pafy.set_api_key(api_key)
 
 
 # Handle download location
-def down_location(type, playlist_name=""):
+def down_location(type, playlist_name="", artist=""):
     def_path = None
     current_os = platform.system()
+    if current_os == "Windows":
+        def_path = "C:\Music\\"
+    else:
+        def_path = "/home/Music/"
+
     if type == 1:
-        if current_os == "Windows":
-            def_path = "C:\Music\Single songs"
-        else:
-            def_path = "/home/Music/Single songs"
+        def_path += "Single songs"
     elif type == 2:
-        if current_os == "Windows":
-            def_path = "C:\Music\Playlists"
-        else:
-            def_path = "/home/Music/Playlists"
+        def_path += "Playlists"
     elif type == 3:
-        if current_os == "Windows":
-            def_path = "C:\Music\Albums"
-        else:
-            def_path = "/home/Music/Albums"
+        def_path += "Albums"
 
     print("Use default download location or a custom one? (Just type 1 or 2)")
     print("1. Default location")
@@ -48,10 +44,16 @@ def down_location(type, playlist_name=""):
             os.makedirs(def_path)
         os.chdir(def_path)
 
+        if artist != "":
+            if not os.path.exists(artist):
+                os.mkdir(artist)
+            os.chdir(artist)
+            
         if playlist_name != "":
             if not os.path.exists(playlist_name):
                 os.mkdir(playlist_name)
             os.chdir(playlist_name)
+
     elif location == 2:
         custom_dir = input("Enter absolute path of custom directory \n")
         os.chdir(custom_dir)
@@ -59,10 +61,10 @@ def down_location(type, playlist_name=""):
         print("Invalid input")
 
 
-def down_playlist(down_type):
+def down_playlist(down_type, artist=""):
     url = input("Enter playlist url: \n")
     playlist = pafy.get_playlist2(url)
-    down_location(down_type, playlist.title)
+    down_location(down_type, playlist.title, artist)
 
     curr_song = 1
     for song in playlist:
@@ -104,18 +106,11 @@ if __name__ == '__main__':
             audiostreams[2].download(video.title + ".m4a")
 
         elif down_type == 2:
-            try:
-                down_playlist(down_type)
-            except:
-                print("Invalid url")
-                continue
+            down_playlist(down_type)
 
         elif down_type == 3:
-            try:
-                down_playlist(down_type)
-            except:
-                print("Invalid url")
-                continue
+            artist = input("Enter artist name: \n")
+            down_playlist(down_type, artist)
 
         else:
             print("Invalid input")

@@ -70,7 +70,7 @@ def down_playlist(down_type, artist=""):
     for song in playlist:
         try:
             print(
-                f"Currently downloading song {curr_song}/{len(playlist) + 1} - [{int((curr_song / len(playlist)) * 100)} %]")
+                f"Currently downloading song {curr_song}/{len(playlist)} - [{int((curr_song / len(playlist)) * 100)} %]")
             song_video = pafy.new(song.watchv_url)
             audiostreams = song_video.m4astreams
             audiostreams[0].download()

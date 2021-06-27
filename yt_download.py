@@ -48,7 +48,7 @@ def down_location(type, playlist_name="", artist=""):
             if not os.path.exists(artist):
                 os.mkdir(artist)
             os.chdir(artist)
-            
+
         if playlist_name != "":
             if not os.path.exists(playlist_name):
                 os.mkdir(playlist_name)
@@ -72,8 +72,8 @@ def down_playlist(down_type, artist=""):
             print(
                 f"Currently downloading song {curr_song}/{len(playlist) + 1} - [{int((curr_song / len(playlist)) * 100)} %]")
             song_video = pafy.new(song.watchv_url)
-            audiostreams = song_video.audiostreams
-            audiostreams[2].download(song_video.title + ".m4a")
+            audiostreams = song_video.m4astreams
+            audiostreams[0].download()
             curr_song += 1
         except:
             continue
@@ -102,8 +102,8 @@ if __name__ == '__main__':
                 continue
 
             down_location(down_type)
-            audiostreams = video.audiostreams
-            audiostreams[2].download(video.title + ".m4a")
+            audiostreams = video.m4astreams
+            audiostreams[0].download()
 
         elif down_type == 2:
             down_playlist(down_type)

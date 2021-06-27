@@ -1,4 +1,5 @@
 import os
+import re
 import sys
 import subprocess
 import platform
@@ -22,6 +23,9 @@ pafy.set_api_key(api_key)
 # Handle download location
 def down_location(type, playlist_name="", artist=""):
     def_path = None
+    # Replace unallowed characters in windows
+    rstr = r"[\/\\\:\*\?\"\<\>\|]"
+    playlist_name = re.sub(rstr, " - ", playlist_name)
     current_os = platform.system()
     if current_os == "Windows":
         def_path = "C:\Music\\"

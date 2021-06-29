@@ -71,10 +71,11 @@ def down_playlist(down_type, artist=""):
     down_location(down_type, playlist.title, artist)
 
     curr_song = 1
+    print(f"Currently downloading album: {playlist.title}\n")
     for song in playlist:
         try:
             print(
-                f"Currently downloading song {curr_song}/{len(playlist)} - [{int((curr_song / len(playlist)) * 100)} %]")
+                f"Currently downloading song {song.title} {curr_song}/{len(playlist)} - [{int((curr_song / len(playlist)) * 100)} %]")
             song_video = pafy.new(song.watchv_url)
             audiostreams = song_video.m4astreams
             audiostreams[0].download()
@@ -107,6 +108,7 @@ if __name__ == '__main__':
 
             down_location(down_type)
             audiostreams = video.m4astreams
+            print(f"Currently downloading {video.title}")
             audiostreams[0].download()
 
         elif down_type == 2:
